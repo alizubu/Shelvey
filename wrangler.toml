@@ -1,5 +1,3 @@
-name = "portfolio"
-type = "javascript"
-account_id = "00657d80ae72e7d76f561bd9f9075647"
-workers_dev = true
-pages_build_output_dir = ".vercel/output"
+kv_namespaces = [
+  { id = "MY_KV", binding="MY_KV" }
+]
