@@ -1,0 +1,6 @@
+name = "portfolio"         # Ensure this is exactly correct
+type = "webpack"           # or whichever type you're using
+account_id = "00657d80ae72e7d76f561bd9f9075647"
+workers_dev = true         # adjust as needed
+route = ""
+zone_id = "7cc82e595a7e231c5085db0cea11b07c"
