@@ -123,7 +123,6 @@ export default function TopNavbar() {
         {/* ── Desktop nav links (md+) ── */}
         <nav
           style={{
-            display: "flex",
             alignItems: "center",
             gap: "4px",
             marginLeft: "auto",
