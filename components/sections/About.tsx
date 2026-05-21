@@ -173,16 +173,18 @@ export default function About() {
           {/* Top: Bio + Info */}
           <div style={{ padding: "clamp(24px,3vw,32px)", borderBottom: "1px solid var(--color-border)" }}>
             {/* Bio */}
-            <p style={{
-              fontSize: "clamp(0.9rem, 1.5vw, 1rem)",
-              color: "var(--color-text-muted)", lineHeight: 1.85,
-              fontFamily: "var(--font-body)", fontWeight: 400,
-              marginBottom: "24px",
-              borderLeft: "2px solid var(--color-accent)",
-              paddingLeft: "16px",
-            }}>
-              {data.bio}
-            </p>
+            <div
+              className="rich-editor-content"
+              dangerouslySetInnerHTML={{ __html: data.bio }}
+              style={{
+                fontSize: "clamp(0.9rem, 1.5vw, 1rem)",
+                color: "var(--color-text-muted)", lineHeight: 1.85,
+                fontFamily: "var(--font-body)", fontWeight: 400,
+                marginBottom: "24px",
+                borderLeft: "2px solid var(--color-accent)",
+                paddingLeft: "16px",
+              }}
+            />
 
             {/* Info badges row */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>

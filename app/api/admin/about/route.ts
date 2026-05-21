@@ -18,7 +18,7 @@ export async function PUT(req: NextRequest) {
   if (guard) return guard;
 
   await connectDB();
-  const body = sanitizeDeep(await req.json());
+  const body = sanitizeDeep(await req.json(), ["bio"]);
   const about = await About.findOneAndUpdate({}, body, { new: true, upsert: true }).lean();
   return NextResponse.json(about);
 }

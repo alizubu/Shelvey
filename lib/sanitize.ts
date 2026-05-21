@@ -9,12 +9,15 @@ export function sanitize(value: unknown): string {
     .trim();
 }
 
-export function sanitizeDeep<T>(obj: T): T {
+export function sanitizeDeep<T>(obj: T, skipKeys?: string[]): T {
   if (typeof obj === "string") return sanitize(obj) as unknown as T;
-  if (Array.isArray(obj))      return obj.map(sanitizeDeep) as unknown as T;
+  if (Array.isArray(obj))      return obj.map(item => sanitizeDeep(item, skipKeys)) as unknown as T;
   if (obj && typeof obj === "object") {
     return Object.fromEntries(
-      Object.entries(obj as Record<string, unknown>).map(([k, v]) => [k, sanitizeDeep(v)])
+      Object.entries(obj as Record<string, unknown>).map(([k, v]) => [
+        k,
+        skipKeys?.includes(k) ? v : sanitizeDeep(v, skipKeys),
+      ])
     ) as T;
   }
   return obj;
