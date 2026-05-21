@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import TextAlign from "@tiptap/extension-text-align";
 import { useEffect, useState, useCallback } from "react";
 import { useTheme } from "@/components/layout/ThemeProvider";
 
@@ -23,6 +24,7 @@ export default function RichTextEditor({ value, onChange, placeholder = "Start w
         heading: { levels: [2, 3] },
       }),
       Placeholder.configure({ placeholder }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: value,
     onUpdate: ({ editor: ed }) => {
@@ -145,6 +147,22 @@ export default function RichTextEditor({ value, onChange, placeholder = "Start w
         </ToolBtn>
         <ToolBtn active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()} title="Numbered List">
           1.
+        </ToolBtn>
+
+        <Divider />
+
+        {/* Alignment */}
+        <ToolBtn active={editor.isActive({ textAlign: "left" })} onClick={() => editor.chain().focus().setTextAlign("left").run()} title="Align Left">
+          <span style={{ fontSize: "0.65rem", lineHeight: 1 }}>⫷</span>
+        </ToolBtn>
+        <ToolBtn active={editor.isActive({ textAlign: "center" })} onClick={() => editor.chain().focus().setTextAlign("center").run()} title="Align Center">
+          <span style={{ fontSize: "0.65rem", lineHeight: 1 }}>⫸</span>
+        </ToolBtn>
+        <ToolBtn active={editor.isActive({ textAlign: "right" })} onClick={() => editor.chain().focus().setTextAlign("right").run()} title="Align Right">
+          <span style={{ fontSize: "0.65rem", lineHeight: 1 }}>⫸</span>
+        </ToolBtn>
+        <ToolBtn active={editor.isActive({ textAlign: "justify" })} onClick={() => editor.chain().focus().setTextAlign("justify").run()} title="Justify">
+          <span style={{ fontSize: "0.65rem", lineHeight: 1 }}>☰</span>
         </ToolBtn>
 
         <Divider />
