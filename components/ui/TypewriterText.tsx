@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/layout/ThemeProvider";
 
 interface TypewriterTextProps {
   lines: string[];
@@ -15,6 +16,9 @@ export default function TypewriterText({
   startDelay = 600,
   className = "",
 }: TypewriterTextProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [displayed, setDisplayed] = useState<string[]>(lines.map(() => ""));
   const [activeLine, setActiveLine] = useState(0);
   const [done, setDone] = useState(false);
@@ -69,9 +73,6 @@ export default function TypewriterText({
         const isLastDone = done && i === lines.length - 1;
         const showCursor = (isActive || isLastDone) && cursorVisible;
 
-        // ── Line 0: Name — big, bold, white with glow
-        // ── Line 1: Title — medium, accent green
-        // ── Line 2: Subtitle — smaller, muted
         const isName = i === 0;
         const isTitle = i === 1;
 
@@ -84,7 +85,7 @@ export default function TypewriterText({
         const fontWeight = isName ? 800 : isTitle ? 600 : 400;
 
         const color = isName
-          ? "#FFFFFF"
+          ? (isDark ? "#FFFFFF" : "var(--color-text)")
           : isTitle
           ? "var(--color-accent)"
           : "var(--color-text-muted)";
@@ -93,10 +94,12 @@ export default function TypewriterText({
         const lineHeight = isName ? 1.15 : 1.6;
         const marginBottom = isName ? "14px" : isTitle ? "8px" : "0";
 
-        const textShadow = isName
-          ? "0 0 30px rgba(57,255,20,0.4), 0 0 60px rgba(57,255,20,0.15), 0 2px 4px rgba(0,0,0,0.5)"
-          : isTitle
-          ? "0 0 12px rgba(57,255,20,0.3)"
+        const textShadow = isDark
+          ? (isName
+            ? "0 0 30px rgba(57,255,20,0.4), 0 0 60px rgba(57,255,20,0.15), 0 2px 4px rgba(0,0,0,0.5)"
+            : isTitle
+            ? "0 0 12px rgba(57,255,20,0.3)"
+            : "none")
           : "none";
 
         return (
@@ -120,13 +123,15 @@ export default function TypewriterText({
             {/* Terminal prompt prefix */}
             <span
               style={{
-                color: isName ? "var(--color-accent)" : isTitle ? "rgba(57,255,20,0.5)" : "rgba(57,255,20,0.3)",
+                color: isDark
+                  ? (isName ? "var(--color-accent)" : isTitle ? "rgba(57,255,20,0.5)" : "rgba(57,255,20,0.3)")
+                  : "var(--color-accent)",
                 fontSize: isName ? "clamp(0.9rem, 2.2vw, 1.4rem)" : "0.8em",
                 flexShrink: 0,
                 userSelect: "none",
-                opacity: displayed[i].length > 0 || i === 0 ? 1 : 0.2,
+                opacity: displayed[i].length > 0 || i === 0 ? 1 : 0.3,
                 transition: "opacity 0.4s ease",
-                textShadow: isName ? "0 0 10px rgba(57,255,20,0.8)" : "none",
+                textShadow: isDark && isName ? "0 0 10px rgba(57,255,20,0.8)" : "none",
                 fontWeight: 700,
               }}
             >
@@ -134,7 +139,7 @@ export default function TypewriterText({
             </span>
 
             {/* Typed text */}
-            <span style={isName ? {
+            <span style={isName && isDark ? {
               background: "linear-gradient(180deg, #FFFFFF 0%, #C8E6C9 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -154,7 +159,9 @@ export default function TypewriterText({
                 marginLeft: "2px",
                 opacity: showCursor ? 1 : 0,
                 verticalAlign: "middle",
-                boxShadow: "0 0 10px var(--color-accent), 0 0 20px rgba(57,255,20,0.6), 0 0 40px rgba(57,255,20,0.2)",
+                boxShadow: isDark
+                  ? "0 0 10px var(--color-accent), 0 0 20px rgba(57,255,20,0.6), 0 0 40px rgba(57,255,20,0.2)"
+                  : "none",
                 transition: "opacity 0.06s",
                 flexShrink: 0,
                 borderRadius: "1px",
