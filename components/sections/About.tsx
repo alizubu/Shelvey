@@ -137,25 +137,39 @@ export default function About() {
               ))}
 
               <div style={{
-                display: "flex", alignItems: "center", gap: "6px",
+                display: "flex", alignItems: "center", gap: "10px",
                 background: "var(--color-accent-bg)",
-                border: "1px solid var(--color-border)",
-                borderRadius: "6px", padding: "8px 14px",
+                border: "1px solid var(--color-accent)",
+                borderRadius: "8px", padding: "12px 22px",
                 fontFamily: "var(--font-mono)",
+                flex: "1 1 auto",
+                minWidth: "120px",
               }}>
-                <span style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--color-accent)" }}>{data.yearsExp}+</span>
-                <span style={{ fontSize: "0.62rem", color: "var(--color-text-dim)", letterSpacing: "0.1em" }}>YRS EXP</span>
+                <span style={{
+                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 800,
+                  color: "var(--color-accent)",
+                  textShadow: "0 0 16px rgba(57,255,20,0.4)",
+                  lineHeight: 1,
+                }}>{data.yearsExp}+</span>
+                <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", letterSpacing: "0.12em", lineHeight: 1.3 }}>YRS<br/>EXP</span>
               </div>
 
               <div style={{
-                display: "flex", alignItems: "center", gap: "6px",
+                display: "flex", alignItems: "center", gap: "10px",
                 background: "var(--color-accent-bg)",
-                border: "1px solid var(--color-border)",
-                borderRadius: "6px", padding: "8px 14px",
+                border: "1px solid var(--color-accent)",
+                borderRadius: "8px", padding: "12px 22px",
                 fontFamily: "var(--font-mono)",
+                flex: "1 1 auto",
+                minWidth: "120px",
               }}>
-                <span style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--color-accent)" }}>{data.companies}</span>
-                <span style={{ fontSize: "0.62rem", color: "var(--color-text-dim)", letterSpacing: "0.1em" }}>COMPANIES</span>
+                <span style={{
+                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 800,
+                  color: "var(--color-accent)",
+                  textShadow: "0 0 16px rgba(57,255,20,0.4)",
+                  lineHeight: 1,
+                }}>{data.companies}</span>
+                <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", letterSpacing: "0.12em", lineHeight: 1.3 }}>COMPA<br/>NIES</span>
               </div>
             </div>
           </div>

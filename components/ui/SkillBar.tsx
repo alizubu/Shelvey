@@ -72,9 +72,9 @@ export default function SkillBar({ label, percent, color = "#39FF14" }: SkillBar
 
       {/* Track */}
       <div style={{
-        height: "4px",
+        height: "8px",
         background: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.07)",
-        borderRadius: "3px",
+        borderRadius: "4px",
         overflow: "hidden",
       }}>
         <div
@@ -85,9 +85,9 @@ export default function SkillBar({ label, percent, color = "#39FF14" }: SkillBar
             background: isDark
               ? `linear-gradient(90deg, ${color}55, ${color})`
               : `linear-gradient(90deg, var(--color-accent), ${color}BB)`,
-            borderRadius: "3px",
+            borderRadius: "4px",
             transition: "width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.1s",
-            boxShadow: isDark ? `0 0 8px ${color}35` : "none",
+            boxShadow: isDark ? `0 0 10px ${color}40` : "none",
           }}
         />
       </div>
