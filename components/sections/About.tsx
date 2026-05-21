@@ -233,11 +233,11 @@ export default function About() {
 
           {/* Skill bars — upgraded */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "22px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--color-text-muted)", letterSpacing: "0.2em" }}>{"// PROFICIENCY"}</span>
               <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
               {SKILLS.map(s => (
                 <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
               ))}

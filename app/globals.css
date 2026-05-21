@@ -368,6 +368,11 @@ body::before {
 .logo-dark  { display: inline-block; }
 .logo-light { display: none; }
 
+[data-theme="dark"] .logo-dark {
+  /* Tint white logo to accent green (57, 255, 20) */
+  filter: brightness(0) saturate(100%) invert(82%) sepia(85%) saturate(1000%) hue-rotate(75deg) brightness(1.1);
+}
+
 [data-theme="light"] .logo-dark  { display: none; }
 [data-theme="light"] .logo-light { display: inline-block; }
 
