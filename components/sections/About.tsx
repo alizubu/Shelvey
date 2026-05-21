@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import SkillBar from "@/components/ui/SkillBar";
 
-const SKILLS = [
+const SKILLS_FALLBACK = [
   { label: "SEO & Technical Optimization",        percent: 95, color: "#39FF14" },
   { label: "Performance Marketing (Google/Meta)", percent: 92, color: "#39FF14" },
   { label: "Analytics & CRO",                    percent: 90, color: "#8BE9FD" },
@@ -11,10 +11,20 @@ const SKILLS = [
   { label: "Brand Growth & Social",              percent: 88, color: "#BD93F9" },
 ];
 
+const FOCUS_FALLBACK = [
+  "Performance Growth",
+  "SEO Scaling",
+  "Conversion Optimization",
+  "Brand Strategy",
+];
+
 interface Discipline { icon: string; title: string; desc: string; }
+interface Skill { label: string; percent: number; color: string; }
 interface AboutData {
   bio: string; location: string; email: string;
   yearsExp: number; companies: number; disciplines: Discipline[];
+  skills: Skill[];
+  currentFocus: string[];
 }
 const FALLBACK: AboutData = {
   bio: "I'm a Digital Marketing Specialist with a proven track record of leveraging analytics to drive measurable brand growth. Currently serving as an R&D Executive at Hirdaramani Bangladesh — spanning performance marketing, SEO, content strategy, and CRO.",
@@ -26,26 +36,21 @@ const FALLBACK: AboutData = {
     { icon: "▦", title: "Content Strategy",      desc: "Audience-focused content planning and thought leadership." },
     { icon: "◉", title: "Brand Growth",          desc: "Data-backed positioning, community building, and campaign direction." },
   ],
+  skills: SKILLS_FALLBACK,
+  currentFocus: FOCUS_FALLBACK,
 };
 
-const FOCUS_ITEMS = [
-  "Performance Growth",
-  "SEO Scaling",
-  "Conversion Optimization",
-  "Brand Strategy",
-];
-
-function CurrentFocus() {
+function CurrentFocus({ items }: { items: string[] }) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
-      setActiveIdx(i % FOCUS_ITEMS.length);
+      setActiveIdx(i % items.length);
       i++;
     }, 1200);
     return () => clearInterval(interval);
-  }, []);
+  }, [items.length]);
 
   return (
     <div style={{
@@ -59,7 +64,7 @@ function CurrentFocus() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {FOCUS_ITEMS.map((item, idx) => (
+        {items.map((item, idx) => (
           <div key={item} style={{
             display: "flex", alignItems: "center", gap: "12px",
             padding: "10px 14px",
@@ -311,13 +316,13 @@ export default function About() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "4px", flex: 1 }}>
-            {SKILLS.map(s => (
+            {(data.skills?.length ? data.skills : SKILLS_FALLBACK).map(s => (
               <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
             ))}
           </div>
 
           {/* Current Focus */}
-          <CurrentFocus />
+          <CurrentFocus items={data.currentFocus?.length ? data.currentFocus : FOCUS_FALLBACK} />
         </div>
       </div>
     </section>

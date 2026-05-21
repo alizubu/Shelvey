@@ -11,16 +11,15 @@ interface AdminSectionProps {
 export function AdminSection({ title, subtitle, icon = "◈", children, actions }: AdminSectionProps) {
   return (
     <div style={{
-      background: "#111111",
-      border: "1px solid #1A1A1A",
-      borderRadius: "0",
+      background: "var(--color-surface)",
+      border: "1px solid var(--color-border)",
+      borderRadius: "6px",
       marginBottom: "28px",
       overflow: "hidden",
     }}>
-      {/* Section header bar */}
       <div style={{
-        background: "#161616",
-        borderBottom: "1px solid #1A1A1A",
+        background: "var(--color-surface-2)",
+        borderBottom: "1px solid var(--color-border)",
         padding: "12px 20px",
         display: "flex",
         alignItems: "center",
@@ -28,13 +27,13 @@ export function AdminSection({ title, subtitle, icon = "◈", children, actions 
         gap: "12px",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ color: "#39FF14", fontSize: "1rem" }}>{icon}</span>
+          <span style={{ color: "var(--color-accent)", fontSize: "1rem" }}>{icon}</span>
           <div>
-            <div style={{ fontSize: "0.72rem", color: "#E8E8E8", letterSpacing: "0.14em", fontWeight: 600 }}>
+            <div style={{ fontSize: "0.72rem", color: "var(--color-text)", letterSpacing: "0.14em", fontWeight: 600 }}>
               {title}
             </div>
             {subtitle && (
-              <div style={{ fontSize: "0.58rem", color: "#555", letterSpacing: "0.08em", marginTop: "1px" }}>
+              <div style={{ fontSize: "0.58rem", color: "var(--color-text-dim)", letterSpacing: "0.08em", marginTop: "1px" }}>
                 {subtitle}
               </div>
             )}
@@ -42,8 +41,6 @@ export function AdminSection({ title, subtitle, icon = "◈", children, actions 
         </div>
         {actions && <div>{actions}</div>}
       </div>
-
-      {/* Body */}
       <div style={{ padding: "20px" }}>
         {children}
       </div>
@@ -65,20 +62,13 @@ export function SaveButton({ saving, onClick, label = "SAVE CHANGES" }: SaveButt
         fontFamily: "'IBM Plex Mono', monospace",
         fontSize: "0.72rem",
         letterSpacing: "0.12em",
-        color: saving ? "#444" : "#39FF14",
+        color: saving ? "var(--color-text-dim)" : "var(--color-accent)",
         background: "transparent",
-        border: `1px solid ${saving ? "#2A2A2A" : "#39FF14"}`,
+        border: `1px solid ${saving ? "var(--color-border)" : "var(--color-accent)"}`,
         padding: "8px 20px",
         cursor: saving ? "not-allowed" : "pointer",
         transition: "all 0.18s",
-        position: "relative",
-        overflow: "hidden",
-      }}
-      onMouseEnter={(e) => {
-        if (!saving) { e.currentTarget.style.background = "#39FF14"; e.currentTarget.style.color = "#0A0A0A"; }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = saving ? "#444" : "#39FF14";
+        borderRadius: "4px",
       }}
     >
       {saving ? "SAVING ..." : `${label} ▶`}
@@ -94,15 +84,14 @@ export function AddButton({ onClick, label = "ADD NEW" }: { onClick: () => void;
         fontFamily: "'IBM Plex Mono', monospace",
         fontSize: "0.68rem",
         letterSpacing: "0.1em",
-        color: "#F5A623",
+        color: "var(--color-accent-2)",
         background: "transparent",
-        border: "1px solid #F5A623",
+        border: "1px solid var(--color-accent-2)",
         padding: "6px 14px",
         cursor: "pointer",
         transition: "all 0.18s",
+        borderRadius: "4px",
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = "#F5A623"; e.currentTarget.style.color = "#0A0A0A"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#F5A623"; }}
     >
       + {label}
     </button>
@@ -117,15 +106,16 @@ export function DeleteButton({ onClick }: { onClick: () => void }) {
         fontFamily: "'IBM Plex Mono', monospace",
         fontSize: "0.6rem",
         letterSpacing: "0.1em",
-        color: "#666",
+        color: "var(--color-text-dim)",
         background: "transparent",
-        border: "1px solid #2A2A2A",
+        border: "1px solid var(--color-border)",
         padding: "4px 10px",
         cursor: "pointer",
         transition: "all 0.18s",
+        borderRadius: "3px",
       }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#FF5F57"; e.currentTarget.style.color = "#FF5F57"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; e.currentTarget.style.color = "#666"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--color-border)"; e.currentTarget.style.color = "var(--color-text-dim)"; }}
     >
       ✕ DELETE
     </button>
