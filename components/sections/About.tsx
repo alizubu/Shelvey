@@ -169,6 +169,19 @@ export default function About() {
               </div>
             ))}
           </div>
+
+          {/* Skill bars — moved here to fill left column */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--color-text-muted)", letterSpacing: "0.2em" }}>{"// PROFICIENCY"}</span>
+              <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {SKILLS.map(s => (
+                <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ══ RIGHT COLUMN ══ */}
@@ -227,19 +240,6 @@ export default function About() {
                   }}>{d.title}</div>
                   <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", lineHeight: 1.7, fontFamily: "var(--font-body)" }}>{d.desc}</div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Skill bars — upgraded */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--color-text-muted)", letterSpacing: "0.2em" }}>{"// PROFICIENCY"}</span>
-              <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-              {SKILLS.map(s => (
-                <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
               ))}
             </div>
           </div>
