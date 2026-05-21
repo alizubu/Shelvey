@@ -68,11 +68,12 @@ export default function About() {
       {/* ── Section header ── */}
       <div style={{ marginBottom: "clamp(40px,6vw,72px)", position: "relative" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
-          <span style={{
+          <span className="about-section-badge" style={{
             fontFamily: "var(--font-mono)", fontSize: "0.62rem",
             color: "var(--color-accent)", letterSpacing: "0.3em",
-            background: "rgba(57,255,20,0.06)", padding: "3px 10px",
-            border: "1px solid rgba(57,255,20,0.15)",
+            background: "var(--color-accent-bg)", padding: "3px 10px",
+            border: "1px solid var(--color-accent)",
+            borderColor: "color-mix(in srgb, var(--color-accent) 20%, transparent)",
           }}>01</span>
           <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, var(--color-accent), transparent)" }} />
         </div>
@@ -80,7 +81,7 @@ export default function About() {
           fontFamily: "var(--font-mono)", fontSize: "clamp(1.8rem,4.5vw,2.8rem)", fontWeight: 700, lineHeight: 1.1,
           color: "var(--color-text)",
         }}>
-          ABOUT<span style={{ color: "var(--color-accent)", textShadow: "0 0 20px rgba(57,255,20,0.4)" }}>.exe</span>
+          ABOUT<span style={{ color: "var(--color-accent)" }}>.exe</span>
         </h2>
         <p style={{
           fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-text-dim)",
@@ -95,15 +96,15 @@ export default function About() {
         {/* ══ LEFT COLUMN ══ */}
         <div ref={leftRef} style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
 
-          {/* Bio card — glass morphism style */}
-          <div style={{
+          {/* Bio card — uses CSS variables for theme awareness */}
+          <div className="about-bio-card" style={{
             position: "relative",
-            background: "linear-gradient(135deg, rgba(17,17,17,0.9) 0%, rgba(26,26,26,0.8) 100%)",
-            border: "1px solid rgba(57,255,20,0.12)",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
             borderRadius: "8px",
             padding: "clamp(24px, 3vw, 32px)",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+            transition: "background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
           }}>
             {/* Corner decorations */}
             <div style={{ position: "absolute", top: "-1px", left: "-1px", width: "20px", height: "20px", borderTop: "2px solid var(--color-accent)", borderLeft: "2px solid var(--color-accent)", borderRadius: "8px 0 0 0", opacity: 0.7 }} />
@@ -128,8 +129,8 @@ export default function About() {
             ].map(({ icon, text }) => (
               <div key={text} style={{
                 display: "flex", alignItems: "center", gap: "8px",
-                background: "rgba(57,255,20,0.04)",
-                border: "1px solid rgba(57,255,20,0.15)",
+                background: "var(--color-accent-bg)",
+                border: "1px solid var(--color-border)",
                 borderRadius: "4px",
                 padding: "8px 14px",
                 fontFamily: "var(--font-mono)", fontSize: "0.66rem",
@@ -142,13 +143,14 @@ export default function About() {
             ))}
           </div>
 
-          {/* Stats row — cleaner grid */}
+          {/* Stats row */}
           <div style={{
             display: "grid", gridTemplateColumns: "repeat(3,1fr)",
-            background: "linear-gradient(135deg, rgba(17,17,17,0.95) 0%, rgba(26,26,26,0.9) 100%)",
-            border: "1px solid rgba(57,255,20,0.1)",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
             borderRadius: "8px",
             overflow: "hidden",
+            transition: "background 0.3s ease, border-color 0.3s ease",
           }}>
             {[
               { end: data.yearsExp, suffix: "+", label: "YRS EXP" },
@@ -158,11 +160,11 @@ export default function About() {
               <div key={s.label} style={{
                 padding: "clamp(18px, 2.5vw, 28px) 12px",
                 textAlign: "center",
-                borderRight: i < 2 ? "1px solid rgba(57,255,20,0.08)" : "none",
+                borderRight: i < 2 ? "1px solid var(--color-border)" : "none",
                 position: "relative",
               }}>
                 {/* Top accent line for each stat */}
-                <div style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: "1px", background: "linear-gradient(to right, transparent, rgba(57,255,20,0.3), transparent)" }} />
+                <div style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: "1px", background: "linear-gradient(to right, transparent, var(--color-accent), transparent)", opacity: 0.4 }} />
                 <StatCounter end={s.end} suffix={s.suffix} label={s.label} />
               </div>
             ))}
@@ -182,7 +184,7 @@ export default function About() {
               {disciplines.map((d, idx) => (
                 <div key={d.title} className="discipline-card" style={{
                   padding: "clamp(14px, 2vw, 20px)",
-                  background: "linear-gradient(135deg, rgba(17,17,17,0.95) 0%, rgba(26,26,26,0.85) 100%)",
+                  background: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
                   borderRadius: "6px",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -192,9 +194,9 @@ export default function About() {
                 }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(57,255,20,0.4)";
+                    el.style.borderColor = "var(--color-accent)";
                     el.style.transform = "translateY(-3px)";
-                    el.style.boxShadow = "0 8px 24px rgba(0,0,0,0.3), 0 0 20px rgba(57,255,20,0.05)";
+                    el.style.boxShadow = "0 8px 24px rgba(0,0,0,0.1), 0 0 20px var(--color-accent-bg)";
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement;
@@ -216,7 +218,6 @@ export default function About() {
                     fontFamily: "var(--font-mono)", fontSize: "1.4rem",
                     marginBottom: "12px", lineHeight: 1,
                     color: idx % 2 === 0 ? "var(--color-accent)" : "#BD93F9",
-                    textShadow: idx % 2 === 0 ? "0 0 10px rgba(57,255,20,0.4)" : "0 0 10px rgba(189,147,249,0.4)",
                   }}>{d.icon}</div>
                   <div style={{
                     fontFamily: "var(--font-mono)", fontSize: "0.7rem",

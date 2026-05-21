@@ -68,8 +68,7 @@ export default function Experience() {
           <div className="hidden md:block" style={{
             position: "absolute", left: "0", top: "20px", bottom: "20px",
             width: "2px",
-            background: "linear-gradient(to bottom, var(--color-accent), rgba(57,255,20,0.1))",
-            boxShadow: "0 0 6px rgba(57,255,20,0.3)",
+            background: "linear-gradient(to bottom, var(--color-accent), transparent)",
           }} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
@@ -85,21 +84,21 @@ export default function Experience() {
                   width: "14px", height: "14px", borderRadius: "50%",
                   background: job.current ? "var(--color-accent)" : "var(--color-bg)",
                   border: `2px solid ${job.current ? "var(--color-accent)" : "var(--color-border)"}`,
-                  boxShadow: job.current ? "0 0 12px var(--color-accent), 0 0 24px rgba(57,255,20,0.3)" : "none",
+                  boxShadow: job.current ? "0 0 12px var(--color-accent)" : "none",
                   zIndex: 2,
                 }} />
 
                 {/* Card */}
                 <div style={{
                   background: "var(--color-surface)",
-                  border: `1px solid ${job.current ? "rgba(57,255,20,0.25)" : "var(--color-border)"}`,
+                  border: `1px solid ${job.current ? "var(--color-accent)" : "var(--color-border)"}`,
                   padding: "clamp(20px,3vw,32px)",
                   transition: "border-color 0.25s, box-shadow 0.25s",
                   position: "relative",
                   overflow: "hidden",
                 }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(57,255,20,0.4)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(57,255,20,0.08)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = job.current ? "rgba(57,255,20,0.25)" : "var(--color-border)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px var(--color-accent-bg)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = job.current ? "var(--color-accent)" : "var(--color-border)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                 >
                   {/* Top accent bar for current job */}
                   {job.current && (
@@ -139,8 +138,8 @@ export default function Experience() {
                       <span key={f} style={{
                         fontFamily: "var(--font-mono)", fontSize: "0.62rem",
                         color: "var(--color-accent)", letterSpacing: "0.08em",
-                        background: "rgba(57,255,20,0.06)",
-                        border: "1px solid rgba(57,255,20,0.18)",
+                        background: "var(--color-accent-bg)",
+                        border: "1px solid var(--color-border)",
                         padding: "3px 10px",
                       }}>{f}</span>
                     ))}

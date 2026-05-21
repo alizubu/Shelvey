@@ -33,21 +33,21 @@
    LIGHT THEME
 ════════════════════════════════════════ */
 [data-theme="light"] {
-  --color-bg:          #F5F5F0;
+  --color-bg:          #FAFAF8;
   --color-surface:     #FFFFFF;
-  --color-surface-2:   #EFEFEA;
-  --color-border:      #D8D8D0;
+  --color-surface-2:   #F3F3EF;
+  --color-border:      #E2E2DC;
   --color-accent:      #1A8C00;
   --color-accent-2:    #C07800;
-  --color-accent-bg:   rgba(26,140,0,0.08);
-  --color-text:        #0A0A0A;
-  --color-text-muted:  #3A3A3A;
-  --color-text-dim:    #888888;
+  --color-accent-bg:   rgba(26,140,0,0.06);
+  --color-text:        #1A1A1A;
+  --color-text-muted:  #4A4A4A;
+  --color-text-dim:    #999999;
 
   --nav-bg:            transparent;
-  --nav-bg-scrolled:   rgba(245,245,240,0.95);
+  --nav-bg-scrolled:   rgba(250,250,248,0.96);
   --nav-border:        transparent;
-  --nav-border-scroll: #D8D8D0;
+  --nav-border-scroll: #E2E2DC;
 }
 
 /* ════════════════════════════════════════
@@ -135,6 +135,10 @@ body::before {
   z-index: 9998;
 }
 
+[data-theme="light"] body::before {
+  opacity: 0.015;
+}
+
 /* ── CRT Scanlines (dark only) ── */
 .scanlines {
   position: fixed;
@@ -189,6 +193,7 @@ body::before {
 [data-theme="light"] .terminal-window {
   border-color: rgba(26, 140, 0, 0.18);
   background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(26,140,0,0.1);
 }
 
 [data-theme="light"] .terminal-window:hover {
@@ -237,6 +242,10 @@ body::before {
   border-color: var(--color-accent);
   box-shadow: 0 4px 0 var(--color-accent), 0 8px 24px rgba(0,0,0,0.3);
   transform: translateY(-3px);
+}
+
+[data-theme="light"] .retro-card:hover {
+  box-shadow: 0 4px 0 var(--color-accent), 0 8px 24px rgba(0,0,0,0.08);
 }
 
 /* ── Glow badge ── */
@@ -296,6 +305,10 @@ body::before {
 }
 .retro-btn:hover::before { width: 100%; }
 
+[data-theme="light"] .retro-btn:hover {
+  box-shadow: 0 4px 12px rgba(26,140,0,0.2);
+}
+
 .retro-btn:active {
   transform: translateY(0);
 }
@@ -332,6 +345,11 @@ body::before {
   overflow: hidden;
 }
 
+[data-theme="light"] .skill-bar-track {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.08);
+}
+
 .skill-bar-fill {
   height: 100%;
   background: var(--color-accent);
@@ -342,12 +360,20 @@ body::before {
   border-radius: 3px;
 }
 
+[data-theme="light"] .skill-bar-fill {
+  box-shadow: none;
+}
+
 /* ── Grid background ── */
 .grid-bg {
   background-image:
     linear-gradient(var(--color-border) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+[data-theme="light"] .grid-bg {
+  opacity: 0.4;
 }
 
 /* ── Retro input ── */
@@ -370,6 +396,10 @@ body::before {
   box-shadow: 0 2px 0 rgba(57,255,20,0.3);
 }
 
+[data-theme="light"] .retro-input:focus {
+  box-shadow: 0 2px 0 rgba(26,140,0,0.25);
+}
+
 .retro-input::placeholder {
   color: var(--color-text-dim);
   font-weight: 400;
@@ -389,6 +419,10 @@ textarea.retro-input:focus {
   box-shadow: 0 0 0 1px rgba(57,255,20,0.15), 0 0 12px rgba(57,255,20,0.05);
 }
 
+[data-theme="light"] textarea.retro-input:focus {
+  box-shadow: 0 0 0 1px rgba(26,140,0,0.15);
+}
+
 /* ── Animations ── */
 @keyframes glitch {
   0%   { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 0); }
@@ -402,6 +436,11 @@ textarea.retro-input:focus {
 @keyframes pulse_glow {
   0%, 100% { box-shadow: 0 0 4px var(--color-accent); }
   50%       { box-shadow: 0 0 12px var(--color-accent), 0 0 24px rgba(57,255,20,0.3); }
+}
+
+@keyframes pulse_glow_light {
+  0%, 100% { box-shadow: 0 0 3px var(--color-accent); }
+  50%       { box-shadow: 0 0 8px var(--color-accent); }
 }
 
 @keyframes float {
@@ -433,4 +472,18 @@ textarea.retro-input:focus {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── Stat counter glow (dark only) ── */
+[data-theme="dark"] .stat-counter-value {
+  text-shadow: 0 0 24px rgba(57,255,20,0.35), 0 0 48px rgba(57,255,20,0.1);
+}
+
+/* ── Light mode: softer shadows and no neon glow ── */
+[data-theme="light"] .glow-badge:hover {
+  box-shadow: 0 0 8px rgba(26,140,0,0.15);
+}
+
+[data-theme="light"] .retro-btn-amber:hover {
+  box-shadow: 0 4px 12px rgba(192,120,0,0.15);
 }

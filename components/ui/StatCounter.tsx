@@ -48,9 +48,9 @@ export default function StatCounter({
           color: "var(--color-accent)",
           fontWeight: 800,
           lineHeight: 1,
-          textShadow: "0 0 24px rgba(57,255,20,0.35), 0 0 48px rgba(57,255,20,0.1)",
           letterSpacing: "-0.02em",
         }}
+        className="stat-counter-value"
       >
         {prefix}{display}{suffix}
       </div>

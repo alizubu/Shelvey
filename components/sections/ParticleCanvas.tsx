@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { useTheme } from "@/components/layout/ThemeProvider";
 
 interface Particle {
   x: number;
@@ -8,10 +9,18 @@ interface Particle {
   vx: number;
   vy: number;
   size: number;
+  opacity: number;
 }
 
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
+  const themeRef = useRef(theme);
+
+  // Keep themeRef in sync so the animation loop always reads the latest theme
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,7 +31,7 @@ export default function ParticleCanvas() {
     let animId: number;
     let mouseX = -9999;
     let mouseY = -9999;
-    const COUNT = 180;
+    const COUNT = 140;
     const MAX_DIST = 120;
     const particles: Particle[] = [];
 
@@ -37,9 +46,10 @@ export default function ParticleCanvas() {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          size: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          size: Math.random() * 2 + 0.8,
+          opacity: Math.random() * 0.5 + 0.3,
         });
       }
     };
@@ -47,7 +57,17 @@ export default function ParticleCanvas() {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Slight mouse parallax
+      const isDark = themeRef.current === "dark";
+
+      // Theme-specific colors
+      const particleColor = isDark
+        ? { r: 57, g: 255, b: 20 }   // Neon green for dark
+        : { r: 26, g: 140, b: 0 };    // Muted green for light
+
+      const baseParticleAlpha = isDark ? 0.5 : 0.35;
+      const baseLineAlpha = isDark ? 0.15 : 0.08;
+      const glowBlur = isDark ? 6 : 0;
+
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -61,8 +81,8 @@ export default function ParticleCanvas() {
         const dy = p.y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 100) {
-          p.x += (dx / dist) * 0.8;
-          p.y += (dy / dist) * 0.8;
+          p.x += (dx / dist) * 0.6;
+          p.y += (dy / dist) * 0.6;
         }
       }
 
@@ -73,9 +93,9 @@ export default function ParticleCanvas() {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.15;
+            const alpha = (1 - dist / MAX_DIST) * baseLineAlpha;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(57,255,20,${alpha})`;
+            ctx.strokeStyle = `rgba(${particleColor.r},${particleColor.g},${particleColor.b},${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -88,9 +108,13 @@ export default function ParticleCanvas() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(57,255,20,0.5)";
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = "#39FF14";
+        ctx.fillStyle = `rgba(${particleColor.r},${particleColor.g},${particleColor.b},${baseParticleAlpha * p.opacity})`;
+        if (glowBlur > 0) {
+          ctx.shadowBlur = glowBlur;
+          ctx.shadowColor = `rgba(${particleColor.r},${particleColor.g},${particleColor.b},0.6)`;
+        } else {
+          ctx.shadowBlur = 0;
+        }
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -103,16 +127,18 @@ export default function ParticleCanvas() {
       mouseY = e.clientY;
     };
 
+    const handleResize = () => { resize(); init(); };
+
     resize();
     init();
     draw();
 
-    window.addEventListener("resize", () => { resize(); init(); });
+    window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", onMouse);
 
     return () => {
       cancelAnimationFrame(animId);
-      window.removeEventListener("resize", () => { resize(); init(); });
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", onMouse);
     };
   }, []);
@@ -127,6 +153,8 @@ export default function ParticleCanvas() {
         height: "100%",
         pointerEvents: "none",
         zIndex: 1,
+        opacity: theme === "dark" ? 1 : 0.6,
+        transition: "opacity 0.5s ease",
       }}
       aria-hidden="true"
     />

@@ -95,10 +95,10 @@ export default function Contact() {
       }} />
 
       {/* Ambient glow */}
-      <div aria-hidden="true" style={{
+      <div aria-hidden="true" className="contact-ambient-glow" style={{
         position: "absolute", top: "20%", left: "50%", width: "600px", height: "400px",
         transform: "translateX(-50%)", pointerEvents: "none",
-        background: "radial-gradient(ellipse at center, rgba(57,255,20,0.03) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse at center, var(--color-accent-bg) 0%, transparent 70%)",
       }} />
 
       <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
@@ -108,8 +108,8 @@ export default function Contact() {
             <span style={{
               fontFamily: "var(--font-mono)", fontSize: "0.62rem",
               color: "var(--color-accent)", letterSpacing: "0.3em",
-              background: "rgba(57,255,20,0.06)", padding: "3px 10px",
-              border: "1px solid rgba(57,255,20,0.15)",
+              background: "var(--color-accent-bg)", padding: "3px 10px",
+              border: "1px solid var(--color-border)",
             }}>04</span>
             <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, var(--color-accent), transparent)" }} />
           </div>
@@ -196,11 +196,11 @@ export default function Contact() {
           <div ref={infoRef} style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
             {/* Contact info card */}
             <div style={{
-              background: "linear-gradient(135deg, rgba(17,17,17,0.95) 0%, rgba(26,26,26,0.9) 100%)",
-              border: "1px solid rgba(57,255,20,0.12)",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
               borderRadius: "8px",
               padding: "clamp(20px, 3vw, 28px)",
-              backdropFilter: "blur(4px)",
+              transition: "background 0.3s ease, border-color 0.3s ease",
             }}>
               {/* Status indicator */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "22px" }}>
@@ -251,16 +251,16 @@ export default function Contact() {
                       padding: "12px 16px",
                       border: "1px solid var(--color-border)",
                       borderRadius: "6px",
-                      background: "linear-gradient(135deg, rgba(17,17,17,0.8) 0%, rgba(26,26,26,0.6) 100%)",
+                      background: "var(--color-surface)",
                       textDecoration: "none",
                       transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                       fontFamily: "var(--font-mono)",
                     }}
                     onMouseEnter={e => {
                       const el = e.currentTarget;
-                      el.style.borderColor = "rgba(57,255,20,0.35)";
+                      el.style.borderColor = "var(--color-accent)";
                       el.style.transform = "translateX(4px)";
-                      el.style.boxShadow = "0 4px 16px rgba(0,0,0,0.3), 0 0 12px rgba(57,255,20,0.06)";
+                      el.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
                     }}
                     onMouseLeave={e => {
                       const el = e.currentTarget;
@@ -271,11 +271,11 @@ export default function Contact() {
                   >
                     <span style={{
                       width: "32px", height: "32px",
-                      border: "1px solid rgba(57,255,20,0.2)",
+                      border: "1px solid var(--color-border)",
                       borderRadius: "4px",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: "0.85rem", color: "var(--color-accent)", flexShrink: 0,
-                      background: "rgba(57,255,20,0.04)",
+                      background: "var(--color-accent-bg)",
                     }}>{s.icon}</span>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: "0.6rem", color: "var(--color-text-dim)", letterSpacing: "0.1em", marginBottom: "2px" }}>{s.label}</div>
@@ -293,7 +293,7 @@ export default function Contact() {
         <div style={{
           maxWidth: "100%", marginTop: "clamp(48px,6vw,72px)",
           paddingTop: "24px",
-          borderTop: "1px solid rgba(57,255,20,0.08)",
+          borderTop: "1px solid var(--color-border)",
           display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px",
         }}>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--color-text-dim)", letterSpacing: "0.1em" }}>

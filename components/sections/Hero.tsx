@@ -91,7 +91,7 @@ export default function Hero() {
           width: "min(900px, 90vw)",
           height: "600px",
           transform: "translate(-50%, -50%)",
-          background: "radial-gradient(ellipse at center, rgba(57,255,20,0.04) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, var(--color-accent-bg) 0%, transparent 70%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
