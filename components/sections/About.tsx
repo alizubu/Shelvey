@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import SkillBar    from "@/components/ui/SkillBar";
+import SkillBar from "@/components/ui/SkillBar";
 
 const SKILLS = [
   { label: "SEO & Technical Optimization",        percent: 95, color: "#39FF14" },
@@ -17,7 +17,7 @@ interface AboutData {
   yearsExp: number; companies: number; disciplines: Discipline[];
 }
 const FALLBACK: AboutData = {
-  bio: "I'm a Digital Marketing Specialist with a proven track record of leveraging analytics to drive measurable brand growth. Currently serving as an R&D Executive at Hirdaramani Bangladesh — spanning performance marketing, SEO, content strategy, and CRO. Outside work I'm passionate about films, gaming, and creative side projects.",
+  bio: "I'm a Digital Marketing Specialist with a proven track record of leveraging analytics to drive measurable brand growth. Currently serving as an R&D Executive at Hirdaramani Bangladesh — spanning performance marketing, SEO, content strategy, and CRO.",
   location: "Chittagong, Bangladesh", email: "shelveyelmodias@gmail.com",
   yearsExp: 7, companies: 3,
   disciplines: [
@@ -44,11 +44,10 @@ export default function About() {
       const gsap = (await import("gsap")).default;
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
-
       if (!sectionRef.current) return;
       const els = sectionRef.current.querySelectorAll(".about-animate");
       gsap.from(els, {
-        y: 30, opacity: 0, stagger: 0.08, duration: 0.7, ease: "power3.out",
+        y: 28, opacity: 0, stagger: 0.1, duration: 0.75, ease: "power3.out",
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
       });
     };
@@ -62,13 +61,13 @@ export default function About() {
       id="about"
       ref={sectionRef}
       className="section-pad"
-      style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}
+      style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}
     >
       {/* ── Section header ── */}
-      <div className="about-animate" style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
+      <div className="about-animate" style={{ marginBottom: "clamp(32px,4vw,48px)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
           <span style={{
-            fontFamily: "var(--font-mono)", fontSize: "0.6rem",
+            fontFamily: "var(--font-mono)", fontSize: "0.62rem",
             color: "var(--color-accent)", letterSpacing: "0.3em",
             background: "var(--color-accent-bg)", padding: "3px 10px",
             border: "1px solid var(--color-border)",
@@ -76,141 +75,164 @@ export default function About() {
           <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, var(--color-accent), transparent)" }} />
         </div>
         <h2 style={{
-          fontFamily: "var(--font-mono)", fontSize: "clamp(1.8rem,4.5vw,2.8rem)", fontWeight: 700, lineHeight: 1.1,
-          color: "var(--color-text)",
+          fontFamily: "var(--font-mono)", fontSize: "clamp(2rem,5vw,3rem)",
+          fontWeight: 700, lineHeight: 1.1, color: "var(--color-text)",
         }}>
           ABOUT<span style={{ color: "var(--color-accent)" }}>.exe</span>
         </h2>
         <p style={{
-          fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--color-text-dim)",
+          fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-text-dim)",
           letterSpacing: "0.08em", marginTop: "8px",
-        }}>
-          {"// who i am & what i do"}
-        </p>
+        }}>{"// who i am & what i do"}</p>
       </div>
 
-      {/* ── Bio ── */}
-      <div className="about-animate" style={{ marginBottom: "clamp(28px,4vw,40px)" }}>
-        <p style={{
-          fontSize: "clamp(0.88rem, 1.5vw, 1rem)", color: "var(--color-text-muted)", lineHeight: 1.9,
-          fontFamily: "var(--font-body)", fontWeight: 400,
-          maxWidth: "720px",
-          borderLeft: "2px solid var(--color-accent)",
-          paddingLeft: "20px",
-        }}>
-          {data.bio}
-        </p>
-      </div>
-
-      {/* ── Info row: location + email + stats ── */}
-      <div className="about-animate" style={{
-        display: "flex", flexWrap: "wrap", alignItems: "center",
-        gap: "16px", marginBottom: "clamp(36px,5vw,52px)",
-      }}>
-        {[
-          { icon: "📍", text: data.location },
-          { icon: "✉",  text: data.email    },
-        ].map(({ icon, text }) => (
-          <div key={text} style={{
-            display: "flex", alignItems: "center", gap: "8px",
-            fontFamily: "var(--font-mono)", fontSize: "0.66rem",
-            color: "var(--color-text-muted)", letterSpacing: "0.04em",
-          }}>
-            <span style={{ fontSize: "0.8rem" }}>{icon}</span>
-            <span>{text}</span>
-          </div>
-        ))}
-
-        {/* Divider */}
-        <div style={{ width: "1px", height: "20px", background: "var(--color-border)", margin: "0 4px" }} />
-
-        {/* Inline stats */}
-        {[
-          { val: `${data.yearsExp}+`, label: "yrs" },
-          { val: `${data.companies}`, label: "companies" },
-        ].map(s => (
-          <div key={s.label} style={{
-            display: "flex", alignItems: "baseline", gap: "4px",
-            fontFamily: "var(--font-mono)",
-          }}>
-            <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--color-accent)" }}>{s.val}</span>
-            <span style={{ fontSize: "0.58rem", color: "var(--color-text-dim)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{s.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Two-column: Disciplines + Proficiency ── */}
+      {/* ══ MAIN GRID ══ */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-        gap: "clamp(32px,4vw,48px)",
-        alignItems: "start",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))",
+        gap: "clamp(20px,3vw,32px)",
+        alignItems: "stretch",
       }}>
 
-        {/* ─ Core Disciplines ─ */}
-        <div className="about-animate">
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--color-text-dim)", letterSpacing: "0.2em" }}>{"// CORE DISCIPLINES"}</span>
-            <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
+        {/* ─── LEFT COLUMN ─── */}
+        <div className="about-animate" style={{
+          display: "flex", flexDirection: "column", gap: "0",
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-border)",
+          borderRadius: "10px",
+          overflow: "hidden",
+        }}>
+
+          {/* Top: Bio + Info */}
+          <div style={{ padding: "clamp(24px,3vw,32px)", borderBottom: "1px solid var(--color-border)" }}>
+            {/* Bio */}
+            <p style={{
+              fontSize: "clamp(0.9rem, 1.5vw, 1rem)",
+              color: "var(--color-text-muted)", lineHeight: 1.85,
+              fontFamily: "var(--font-body)", fontWeight: 400,
+              marginBottom: "24px",
+              borderLeft: "2px solid var(--color-accent)",
+              paddingLeft: "16px",
+            }}>
+              {data.bio}
+            </p>
+
+            {/* Info badges row */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              {[
+                { icon: "📍", text: data.location },
+                { icon: "✉",  text: data.email    },
+              ].map(({ icon, text }) => (
+                <div key={text} style={{
+                  display: "flex", alignItems: "center", gap: "8px",
+                  background: "var(--color-surface-2)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "6px", padding: "8px 14px",
+                  fontFamily: "var(--font-mono)", fontSize: "0.7rem",
+                  color: "var(--color-text-muted)",
+                }}>
+                  <span style={{ fontSize: "0.85rem" }}>{icon}</span>
+                  <span>{text}</span>
+                </div>
+              ))}
+
+              <div style={{
+                display: "flex", alignItems: "center", gap: "6px",
+                background: "var(--color-accent-bg)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "6px", padding: "8px 14px",
+                fontFamily: "var(--font-mono)",
+              }}>
+                <span style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--color-accent)" }}>{data.yearsExp}+</span>
+                <span style={{ fontSize: "0.62rem", color: "var(--color-text-dim)", letterSpacing: "0.1em" }}>YRS EXP</span>
+              </div>
+
+              <div style={{
+                display: "flex", alignItems: "center", gap: "6px",
+                background: "var(--color-accent-bg)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "6px", padding: "8px 14px",
+                fontFamily: "var(--font-mono)",
+              }}>
+                <span style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--color-accent)" }}>{data.companies}</span>
+                <span style={{ fontSize: "0.62rem", color: "var(--color-text-dim)", letterSpacing: "0.1em" }}>COMPANIES</span>
+              </div>
+            </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            {disciplines.map((d, idx) => (
-              <div key={d.title} style={{
-                padding: "clamp(14px, 2vw, 20px)",
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
-                borderRadius: "6px",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                cursor: "default",
-                position: "relative",
-                overflow: "hidden",
-              }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "var(--color-accent)";
-                  el.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "var(--color-border)";
-                  el.style.transform = "translateY(0)";
-                }}
-              >
-                {/* Accent top line */}
-                <div style={{
-                  position: "absolute", top: 0, left: 0, right: 0, height: "2px",
-                  background: idx % 2 === 0
-                    ? "linear-gradient(to right, var(--color-accent), transparent)"
-                    : "linear-gradient(to right, #BD93F9, transparent)",
-                  opacity: 0.5,
-                }} />
+          {/* Bottom: Discipline Cards */}
+          <div style={{ padding: "clamp(20px,3vw,28px)", flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--color-text-dim)", letterSpacing: "0.2em" }}>{"// CORE DISCIPLINES"}</span>
+              <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
+            </div>
 
-                <div style={{
-                  fontFamily: "var(--font-mono)", fontSize: "1.2rem",
-                  marginBottom: "10px", lineHeight: 1,
-                  color: idx % 2 === 0 ? "var(--color-accent)" : "#BD93F9",
-                }}>{d.icon}</div>
-                <div style={{
-                  fontFamily: "var(--font-mono)", fontSize: "0.68rem",
-                  color: "var(--color-text)", fontWeight: 700,
-                  marginBottom: "6px", letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                }}>{d.title}</div>
-                <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", lineHeight: 1.7, fontFamily: "var(--font-body)" }}>{d.desc}</div>
-              </div>
-            ))}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              {disciplines.map((d, idx) => (
+                <div key={d.title} style={{
+                  padding: "clamp(16px,2.5vw,22px)",
+                  background: "var(--color-surface-2)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "8px",
+                  transition: "all 0.25s ease",
+                  cursor: "default",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "var(--color-accent)";
+                    el.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "var(--color-border)";
+                    el.style.transform = "translateY(0)";
+                  }}
+                >
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, height: "2px",
+                    background: idx % 2 === 0
+                      ? "linear-gradient(to right, var(--color-accent), transparent)"
+                      : "linear-gradient(to right, #BD93F9, transparent)",
+                    opacity: 0.6,
+                  }} />
+                  <div style={{
+                    fontFamily: "var(--font-mono)", fontSize: "1.5rem",
+                    marginBottom: "12px", lineHeight: 1,
+                    color: idx % 2 === 0 ? "var(--color-accent)" : "#BD93F9",
+                  }}>{d.icon}</div>
+                  <div style={{
+                    fontFamily: "var(--font-mono)", fontSize: "0.78rem",
+                    color: "var(--color-text)", fontWeight: 700,
+                    marginBottom: "8px", letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                  }}>{d.title}</div>
+                  <div style={{
+                    fontSize: "0.78rem", color: "var(--color-text-muted)",
+                    lineHeight: 1.7, fontFamily: "var(--font-body)",
+                  }}>{d.desc}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* ─ Proficiency ─ */}
-        <div className="about-animate">
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--color-text-dim)", letterSpacing: "0.2em" }}>{"// PROFICIENCY"}</span>
+        {/* ─── RIGHT COLUMN: Proficiency Card ─── */}
+        <div className="about-animate" style={{
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-border)",
+          borderRadius: "10px",
+          padding: "clamp(24px,3vw,32px)",
+          display: "flex",
+          flexDirection: "column",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--color-text-dim)", letterSpacing: "0.2em" }}>{"// PROFICIENCY"}</span>
             <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px", flex: 1 }}>
             {SKILLS.map(s => (
               <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
             ))}
