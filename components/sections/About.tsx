@@ -92,7 +92,7 @@ export default function About() {
       {/* ── Bio ── */}
       <div className="about-animate" style={{ marginBottom: "clamp(28px,4vw,40px)" }}>
         <p style={{
-          fontSize: "0.95rem", color: "var(--color-text-muted)", lineHeight: 2,
+          fontSize: "clamp(0.88rem, 1.5vw, 1rem)", color: "var(--color-text-muted)", lineHeight: 1.9,
           fontFamily: "var(--font-body)", fontWeight: 400,
           maxWidth: "720px",
           borderLeft: "2px solid var(--color-accent)",

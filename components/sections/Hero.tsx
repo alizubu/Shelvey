@@ -78,7 +78,7 @@ export default function Hero() {
         justifyContent: "center",
         position: "relative",
         overflow: "hidden",
-        padding: "clamp(60px,8vw,120px) clamp(16px,4vw,40px)",
+        padding: "clamp(40px,6vw,100px) clamp(16px,4vw,40px)",
       }}
     >
       {/* Ambient radial glow behind terminal */}

@@ -6,13 +6,6 @@ export const metadata: Metadata = {
   robots: "noindex, nofollow",
 };
 
-/**
- * Admin segment layout.
- * – Shares root <html>/<body> from app/layout.tsx.
- * – Wraps children in SessionWrapper for next-auth/react hooks.
- * – The div below pins cursor:auto so the portfolio's cursor:none
- *   (set on <body>) does NOT affect admin pages.
- */
 export default function AdminSegmentLayout({
   children,
 }: {
@@ -20,18 +13,17 @@ export default function AdminSegmentLayout({
 }) {
   return (
     <SessionWrapper>
-      {/* Full-height wrapper that resets every portfolio-specific style */}
       <div
         id="admin-root"
         style={{
           cursor: "auto",
           fontFamily: "'IBM Plex Mono', monospace",
-          background: "#0A0A0A",
-          color: "#E8E8E8",
+          background: "var(--color-bg)",
+          color: "var(--color-text)",
           minHeight: "100vh",
-          /* Remove any noise/overlay that bleeds from body::before */
           position: "relative",
-          isolation: "isolate",         /* new stacking context */
+          isolation: "isolate",
+          transition: "background 0.3s ease, color 0.3s ease",
         }}
       >
         {children}
