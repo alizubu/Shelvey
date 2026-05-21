@@ -6,6 +6,7 @@ import ScanlineOverlay from "./ScanlineOverlay";
 import CustomCursor    from "./CustomCursor";
 import TopNavbar       from "./TopNavbar";
 import Sidebar         from "./Sidebar";
+import LightModeBackground from "./LightModeBackground";
 
 /** Renders portfolio chrome only on non-admin routes.
  *  Also toggles `admin-page` class on <body> so globals.css
@@ -38,6 +39,7 @@ export default function PortfolioChrome({ children }: { children: React.ReactNod
 
   return (
     <>
+      <LightModeBackground />
       <ScanlineOverlay />
       <CustomCursor />
       <TopNavbar />
