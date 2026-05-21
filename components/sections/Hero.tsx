@@ -117,7 +117,7 @@ export default function Hero() {
         </TerminalWindow>
 
         {/* Tagline */}
-        <div ref={taglineRef} style={{ marginTop: "32px", opacity: 0 }}>
+        <div ref={taglineRef} style={{ marginTop: "32px" }}>
           <p style={{
             fontFamily: "var(--font-body)",
             fontSize: "clamp(0.88rem, 1.8vw, 1.02rem)",
@@ -135,7 +135,7 @@ export default function Hero() {
         </div>
 
         {/* CTA buttons */}
-        <div ref={ctaRef} style={{ display: "flex", gap: "14px", marginTop: "32px", flexWrap: "wrap", opacity: 0 }}>
+        <div ref={ctaRef} style={{ display: "flex", gap: "14px", marginTop: "32px", flexWrap: "wrap" }}>
           <button className="retro-btn" onClick={() => goTo(data.ctaPrimaryLink)}>
             <span>{data.ctaPrimaryText}</span>
           </button>

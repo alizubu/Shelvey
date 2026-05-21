@@ -79,13 +79,16 @@ export function heroLoadTimeline(
     tl.from(textEl, { opacity: 0, duration: 0.01 }, 0.8);
   }
   if (taglineEl) {
-    tl.from(taglineEl, { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" }, 1.8);
+    gsap.set(taglineEl, { opacity: 0, y: 20 });
+    tl.to(taglineEl, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 1.8);
   }
   if (ctaEl) {
-    tl.from(ctaEl, { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 2.2);
+    gsap.set(ctaEl, { opacity: 0, y: 20 });
+    tl.to(ctaEl, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 2.2);
   }
   if (scrollEl) {
-    tl.from(scrollEl, { opacity: 0, duration: 0.4 }, 2.5);
+    gsap.set(scrollEl, { opacity: 0 });
+    tl.to(scrollEl, { opacity: 1, duration: 0.4 }, 2.5);
   }
 
   return tl;

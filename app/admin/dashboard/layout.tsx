@@ -12,12 +12,12 @@ export default function DashboardLayout({
       style={{
         display: "flex",
         minHeight: "100vh",
-        background: "#0A0A0A",
-        color: "#E8E8E8",
+        background: "var(--color-bg)",
+        color: "var(--color-text)",
         fontFamily: "'IBM Plex Mono', monospace",
-        /* Prevent portfolio body styles leaking in */
         cursor: "auto",
         isolation: "isolate",
+        transition: "background 0.3s ease, color 0.3s ease",
       }}
     >
       {/* ── Left sidebar (hidden on mobile, visible md+) ── */}
@@ -42,14 +42,13 @@ export default function DashboardLayout({
       {/* ── Toast notifications ── */}
       <Toaster
         position="bottom-right"
-        theme="dark"
         toastOptions={{
           style: {
             fontFamily: "'IBM Plex Mono', monospace",
             fontSize: "0.78rem",
-            background: "#111111",
-            border: "1px solid #2A2A2A",
-            color: "#E8E8E8",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            color: "var(--color-text)",
             cursor: "auto",
           },
         }}
