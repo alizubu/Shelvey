@@ -153,8 +153,9 @@ export default function ParticleCanvas() {
         height: "100%",
         pointerEvents: "none",
         zIndex: 1,
-        opacity: theme === "dark" ? 1 : 0.6,
+        opacity: theme === "dark" ? 1 : 0,
         transition: "opacity 0.5s ease",
+        visibility: theme === "dark" ? "visible" : "hidden",
       }}
       aria-hidden="true"
     />
