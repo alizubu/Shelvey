@@ -26,15 +26,18 @@ export default function StatCounter({
     if (!inView || started || typeof end !== "number") return;
     setStarted(true);
 
+    let rafId: number;
     const startTime = performance.now();
     const step = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * (end as number)));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) rafId = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
+    rafId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(rafId);
   }, [inView, end, duration, started]);
 
   const display = typeof end === "string" ? end : count;

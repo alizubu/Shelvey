@@ -26,7 +26,6 @@ export default function AdminSidebar() {
       minWidth: "220px",
       background: isDark ? "#111111" : "#FAFAF8",
       borderRight: `1px solid ${isDark ? "#1A1A1A" : "#E8E8E4"}`,
-      display: "flex",
       flexDirection: "column",
       padding: "0",
       flexShrink: 0,
