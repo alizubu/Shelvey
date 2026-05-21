@@ -4,7 +4,7 @@
 
 A full-featured personal portfolio website with a **retro terminal aesthetic** and a complete **admin panel** for managing all content dynamically — no code changes required.
 
-**Live:** [shelveyportfolio.vercel.app](https://shelveyportfolio.vercel.app)
+**Live:** [shelvey.vercel.app](https://shelve.vercel.app)
 
 ---
 
