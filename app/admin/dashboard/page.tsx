@@ -19,7 +19,6 @@ export default function DashboardPage() {
   const [counts, setCounts] = useState<Counts | null>(null);
   const [time,   setTime]   = useState("");
 
-  /* Live clock */
   useEffect(() => {
     const tick = () => setTime(new Date().toLocaleTimeString("en-GB", { hour12: false }));
     tick();
@@ -27,11 +26,8 @@ export default function DashboardPage() {
     return () => clearInterval(iv);
   }, []);
 
-  /* Fetch counts — graceful: null / non-array is handled */
   useEffect(() => {
-    const safe = (v: unknown): number =>
-      Array.isArray(v) ? v.length : 0;
-
+    const safe = (v: unknown): number => Array.isArray(v) ? v.length : 0;
     Promise.allSettled([
       fetch("/api/admin/experience").then(r => r.json()),
       fetch("/api/admin/services").then(r => r.json()),
@@ -45,15 +41,14 @@ export default function DashboardPage() {
     });
   }, []);
 
-  const STAT_COLOR = "#39FF14";
-
   return (
     <div>
       {/* ── Terminal header ── */}
       <div style={{
-        background: "#111111",
-        border: "1px solid #1A1A1A",
-        padding: "20px 24px",
+        background: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "8px",
+        padding: "24px 28px",
         marginBottom: "24px",
         display: "flex",
         alignItems: "center",
@@ -62,21 +57,21 @@ export default function DashboardPage() {
         gap: "12px",
       }}>
         <div>
-          <div style={{ fontSize: "0.6rem", color: "#39FF14", letterSpacing: "0.3em", marginBottom: "6px" }}>
+          <div style={{ fontSize: "0.6rem", color: "var(--color-accent)", letterSpacing: "0.3em", marginBottom: "6px" }}>
             ~$ admin@portfolio — dashboard
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 700, color: "#E8E8E8", letterSpacing: "0.1em" }}>
-            ADMIN PANEL<span style={{ color: "#39FF14" }}>_</span>
+          <div style={{ fontSize: "1.4rem", fontWeight: 700, color: "var(--color-text)", letterSpacing: "0.1em" }}>
+            ADMIN PANEL<span style={{ color: "var(--color-accent)" }}>_</span>
           </div>
-          <div style={{ fontSize: "0.7rem", color: "#555", letterSpacing: "0.1em", marginTop: "4px" }}>
+          <div style={{ fontSize: "0.7rem", color: "var(--color-text-dim)", letterSpacing: "0.1em", marginTop: "4px" }}>
             SHELVEY ELMO DIAS — PORTFOLIO CONTROL CENTER
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "0.62rem", color: "#39FF14", letterSpacing: "0.1em", fontVariantNumeric: "tabular-nums" }}>
+          <div style={{ fontSize: "0.62rem", color: "var(--color-accent)", letterSpacing: "0.1em", fontVariantNumeric: "tabular-nums" }}>
             {time || "00:00:00"}
           </div>
-          <div style={{ fontSize: "0.58rem", color: "#444", letterSpacing: "0.08em", marginTop: "2px" }}>
+          <div style={{ fontSize: "0.58rem", color: "var(--color-text-dim)", letterSpacing: "0.08em", marginTop: "2px" }}>
             SYSTEM ONLINE
           </div>
         </div>
@@ -86,24 +81,29 @@ export default function DashboardPage() {
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-        gap: "10px",
+        gap: "12px",
         marginBottom: "24px",
       }}>
         {[
-          { label: "SECTIONS",    val: "7",                                        color: STAT_COLOR  },
-          { label: "EXPERIENCES", val: counts ? String(counts.experiences) : "—",  color: "#F5A623"  },
-          { label: "SERVICES",    val: counts ? String(counts.services)    : "—",  color: STAT_COLOR  },
-          { label: "MESSAGES",    val: counts ? String(counts.messages)    : "—",  color: "#F5A623"  },
+          { label: "SECTIONS",    val: "7",                                        color: "var(--color-accent)" },
+          { label: "EXPERIENCES", val: counts ? String(counts.experiences) : "—",  color: "var(--color-accent-2)" },
+          { label: "SERVICES",    val: counts ? String(counts.services)    : "—",  color: "var(--color-accent)" },
+          { label: "MESSAGES",    val: counts ? String(counts.messages)    : "—",  color: "var(--color-accent-2)" },
         ].map(({ label, val, color }) => (
           <div key={label} style={{
-            background: "#111111",
-            border: "1px solid #1A1A1A",
-            padding: "14px 16px",
-          }}>
-            <div style={{ fontSize: "0.56rem", color: "#444", letterSpacing: "0.14em", marginBottom: "8px" }}>
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "8px",
+            padding: "16px 18px",
+            transition: "border-color 0.2s ease, transform 0.2s ease",
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--color-accent)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--color-border)"; e.currentTarget.style.transform = "translateY(0)"; }}
+          >
+            <div style={{ fontSize: "0.56rem", color: "var(--color-text-dim)", letterSpacing: "0.14em", marginBottom: "8px" }}>
               {label}
             </div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 700, color, fontFamily: "'IBM Plex Mono', monospace" }}>
+            <div style={{ fontSize: "1.5rem", fontWeight: 700, color }}>
               {val}
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-        gap: "12px",
+        gap: "14px",
       }}>
         {SECTIONS.map(({ href, icon, label, desc }) => (
           <Link
@@ -122,33 +122,37 @@ export default function DashboardPage() {
             href={href}
             style={{
               display: "block",
-              background: "#111111",
-              border: "1px solid #1A1A1A",
-              padding: "20px",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "8px",
+              padding: "22px",
               textDecoration: "none",
-              transition: "border-color 0.18s ease, box-shadow 0.18s ease",
+              transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = "#39FF14";
-              (e.currentTarget as HTMLElement).style.boxShadow   = "2px 2px 0 #39FF14";
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "var(--color-accent)";
+              el.style.transform = "translateY(-3px)";
+              el.style.boxShadow = "0 8px 24px rgba(0,0,0,0.1)";
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = "#1A1A1A";
-              (e.currentTarget as HTMLElement).style.boxShadow   = "none";
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "var(--color-border)";
+              el.style.transform = "translateY(0)";
+              el.style.boxShadow = "none";
             }}
           >
-            <div style={{ fontSize: "1.4rem", color: "#39FF14", marginBottom: "10px" }}>{icon}</div>
+            <div style={{ fontSize: "1.4rem", color: "var(--color-accent)", marginBottom: "12px" }}>{icon}</div>
             <div style={{
-              fontSize: "0.78rem", color: "#E8E8E8",
-              fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700,
-              letterSpacing: "0.12em", marginBottom: "6px",
+              fontSize: "0.8rem", color: "var(--color-text)",
+              fontWeight: 700, letterSpacing: "0.12em", marginBottom: "6px",
             }}>
               {label}
             </div>
-            <div style={{ fontSize: "0.68rem", color: "#555", letterSpacing: "0.06em", lineHeight: 1.6 }}>
+            <div style={{ fontSize: "0.7rem", color: "var(--color-text-dim)", letterSpacing: "0.04em", lineHeight: 1.6 }}>
               {desc}
             </div>
-            <div style={{ fontSize: "0.62rem", color: "#39FF14", marginTop: "14px", letterSpacing: "0.1em" }}>
+            <div style={{ fontSize: "0.64rem", color: "var(--color-accent)", marginTop: "14px", letterSpacing: "0.1em" }}>
               EDIT →
             </div>
           </Link>
@@ -159,14 +163,15 @@ export default function DashboardPage() {
       <div style={{
         marginTop: "28px",
         padding: "14px 18px",
-        border: "1px solid #1A1A1A",
-        background: "#111111",
+        border: "1px solid var(--color-border)",
+        borderRadius: "6px",
+        background: "var(--color-surface)",
         fontSize: "0.65rem",
-        color: "#333",
+        color: "var(--color-text-dim)",
         letterSpacing: "0.08em",
         lineHeight: 1.8,
       }}>
-        <span style={{ color: "#39FF14" }}>NOTE:</span> Connect MongoDB Atlas to persist changes.
+        <span style={{ color: "var(--color-accent)" }}>NOTE:</span> Connect MongoDB Atlas to persist changes.
         Without a DB connection, edits are not saved between sessions.
       </div>
     </div>
