@@ -28,6 +28,68 @@ const FALLBACK: AboutData = {
   ],
 };
 
+const FOCUS_ITEMS = [
+  "Performance Growth",
+  "SEO Scaling",
+  "Conversion Optimization",
+  "Brand Strategy",
+];
+
+function CurrentFocus() {
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setActiveIdx(i % FOCUS_ITEMS.length);
+      i++;
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{
+      marginTop: "24px",
+      borderTop: "1px solid var(--color-border)",
+      paddingTop: "20px",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--color-text-dim)", letterSpacing: "0.2em" }}>{"// CURRENT FOCUS"}</span>
+        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, var(--color-border), transparent)" }} />
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        {FOCUS_ITEMS.map((item, idx) => (
+          <div key={item} style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            padding: "10px 14px",
+            borderRadius: "6px",
+            border: "1px solid",
+            borderColor: activeIdx === idx ? "var(--color-accent)" : "var(--color-border)",
+            background: activeIdx === idx ? "var(--color-accent-bg)" : "transparent",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            fontFamily: "var(--font-mono)",
+          }}>
+            <span style={{
+              width: "8px", height: "8px", borderRadius: "50%", flexShrink: 0,
+              background: activeIdx === idx ? "var(--color-accent)" : "var(--color-border)",
+              boxShadow: activeIdx === idx ? "0 0 8px var(--color-accent)" : "none",
+              transition: "all 0.4s ease",
+            }} />
+            <span style={{
+              fontSize: "0.76rem",
+              color: activeIdx === idx ? "var(--color-accent)" : "var(--color-text-muted)",
+              fontWeight: activeIdx === idx ? 600 : 400,
+              letterSpacing: "0.04em",
+              transition: "color 0.4s ease",
+            }}>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function About() {
   const [data, setData] = useState<AboutData>(FALLBACK);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -130,6 +192,8 @@ export default function About() {
                   borderRadius: "6px", padding: "8px 14px",
                   fontFamily: "var(--font-mono)", fontSize: "0.7rem",
                   color: "var(--color-text-muted)",
+                  flex: "1 1 auto",
+                  minWidth: "140px",
                 }}>
                   <span style={{ fontSize: "0.85rem" }}>{icon}</span>
                   <span>{text}</span>
@@ -251,6 +315,9 @@ export default function About() {
               <SkillBar key={s.label} label={s.label} percent={s.percent} color={s.color} />
             ))}
           </div>
+
+          {/* Current Focus */}
+          <CurrentFocus />
         </div>
       </div>
     </section>
