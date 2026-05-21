@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { toast }               from "sonner";
 import { AdminSection, SaveButton, AddButton, DeleteButton } from "@/components/admin/AdminSection";
 import { AdminField, AdminInput, AdminTextarea }              from "@/components/admin/AdminField";
+import dynamic from "next/dynamic";
+
+const RichTextEditor = dynamic(() => import("@/components/admin/RichTextEditor"), { ssr: false });
 
 interface Discipline { _id?: string; icon: string; title: string; desc: string; }
 interface Skill { label: string; percent: number; color: string; }
@@ -107,8 +110,8 @@ export default function AboutAdminPage() {
 
       {/* ── BIO ── */}
       <AdminSection title="BIO" icon="◉">
-        <AdminField label="BIO TEXT" hint="displayed on about section">
-          <AdminTextarea value={data.bio} onChange={setField("bio")} rows={5} />
+        <AdminField label="BIO TEXT" hint="rich text editor — supports formatting">
+          <RichTextEditor value={data.bio} onChange={(html) => setData(prev => ({ ...prev, bio: html }))} placeholder="Write your bio here..." />
         </AdminField>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           <AdminField label="LOCATION">
