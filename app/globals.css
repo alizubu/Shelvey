@@ -364,6 +364,13 @@ body::before {
   box-shadow: none;
 }
 
+/* ── Logo theme switching ── */
+.logo-dark  { display: inline-block; }
+.logo-light { display: none; }
+
+[data-theme="light"] .logo-dark  { display: none; }
+[data-theme="light"] .logo-light { display: inline-block; }
+
 /* ── Grid background ── */
 .grid-bg {
   background-image:

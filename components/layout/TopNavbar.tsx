@@ -105,19 +105,27 @@ export default function TopNavbar() {
         <button
           onClick={() => scrollTo("hero")}
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.8rem",
-            fontWeight: 700,
-            color: "var(--color-accent)",
-            letterSpacing: "0.12em",
             background: "none",
             border: "none",
             cursor: "pointer",
             flexShrink: 0,
             padding: 0,
+            display: "flex",
+            alignItems: "center",
           }}
         >
-          SED<span style={{ color: "var(--color-text-muted)", fontWeight: 400 }}>.portfolio</span>
+          <img
+            src="/assets/logos/shelvey-logo-white.svg"
+            alt="Shelvey Logo"
+            className="logo-dark"
+            style={{ height: "28px", width: "auto" }}
+          />
+          <img
+            src="/assets/logos/shelvey-logo-black.svg"
+            alt="Shelvey Logo"
+            className="logo-light"
+            style={{ height: "28px", width: "auto" }}
+          />
         </button>
 
         {/* ── Desktop nav links (md+) ── */}

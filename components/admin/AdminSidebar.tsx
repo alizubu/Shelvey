@@ -39,10 +39,12 @@ export default function AdminSidebar() {
         borderBottom: `1px solid ${isDark ? "#1A1A1A" : "#E8E8E4"}`,
         marginBottom: "8px",
       }}>
-        <div style={{ fontSize: "0.62rem", color: isDark ? "#444" : "#999", letterSpacing: "0.2em", marginBottom: "4px" }}>
-          PORTFOLIO
-        </div>
-        <div style={{ fontSize: "0.88rem", color: "var(--color-accent)", fontWeight: 700, letterSpacing: "0.12em" }}>
+        <img
+          src={isDark ? "/assets/logos/shelvey-logo-white.svg" : "/assets/logos/shelvey-logo-black.svg"}
+          alt="Shelvey Logo"
+          style={{ height: "22px", width: "auto", marginBottom: "8px" }}
+        />
+        <div style={{ fontSize: "0.62rem", color: isDark ? "#444" : "#999", letterSpacing: "0.2em" }}>
           ADMIN PANEL
         </div>
       </div>
